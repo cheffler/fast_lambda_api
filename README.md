@@ -29,8 +29,9 @@ This library is a development only tool, therefore it does not provide any tooli
 
 - [x] Decorator to access handler
 - [x] Standard FastAPI app to inject routes
-- [ ] Configure OpenAPI spec
-- [ ] Add tags
+- [x] Configure OpenAPI spec
+- [x] Add tags
+- [ ] Extend OpenAPI spec with AWS security examples
 - [ ] Examples
   - [ ] Basic
   - [ ] Lambdalith
