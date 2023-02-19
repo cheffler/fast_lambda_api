@@ -33,9 +33,9 @@ This library is a development only tool, therefore it does not provide any tooli
 - [x] Add tags
 - [ ] CLI tooling
   - [x] Extract
+  - [ ] Filter APIs (duplicate task)
   - [ ] Extract for API Gateway
   - [ ] Extract for Docs
-  - [ ] Filter APIs (duplicate task)
   - [ ] Bootstrap
   - [ ] Template router
   - [ ] Inject route
