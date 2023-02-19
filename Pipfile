@@ -7,15 +7,19 @@ name = "pypi"
 fastapi = "*"
 pydantic = "*"
 uvicorn = "*"
+click = "*"
+pyyaml = "*"
+types-pyyaml = "*"
 
 [dev-packages]
 flake8 = "*"
 black = "*"
 isort = "*"
 mypy = "*"
+types-pyyaml = "*"
 
 [requires]
 python_version = "3.8"
 
 [scripts]
-basic="uvicorn example.basic.main:app --reload --reload-dir=example/basic"
+basic="uvicorn examples.basic.main:app --reload --reload-dir=examples/basic"
