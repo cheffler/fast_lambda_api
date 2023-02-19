@@ -2,7 +2,7 @@
 
 from enum import Enum
 from random import randint
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 from uuid import uuid4
 
 from pydantic import BaseModel, Field
@@ -52,7 +52,7 @@ class Temperature(BaseModel):
 
 class CakeRecipe(BaseModel):
     class Config:
-        schema_extra = {
+        schema_extra: dict = {
             "example": {
                 "name": "Victoria Sponge",
                 "type": "sponge",

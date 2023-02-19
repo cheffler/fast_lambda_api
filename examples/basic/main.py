@@ -1,12 +1,10 @@
-from src import app, customise_openapi_schema
-from .routes.commands import (
-    commands_api_v1,
-    commands_api_v2,
-    OPENAPI_TAG as command_tags,
-)
 from fastapi.staticfiles import StaticFiles
-from .desc import MAIN_DESCRIPTION
 
+from src import app, customise_openapi_schema
+
+from .desc import MAIN_DESCRIPTION
+from .routes.commands import OPENAPI_TAG as command_tags
+from .routes.commands import commands_api_v1, commands_api_v2
 
 customise_openapi_schema(
     title="Basic Example of Lambda API Gateway",
@@ -25,7 +23,7 @@ customise_openapi_schema(
 # To enable the logo, mount a static directory
 app.mount(
     "/static",
-    StaticFiles(directory="example/basic/static"),
+    StaticFiles(directory="examples/basic/static"),
     name="static",
 )
 
