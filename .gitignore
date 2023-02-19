@@ -1,2 +1,3 @@
 api/*.json
 api/*.yaml
+__pycache__
