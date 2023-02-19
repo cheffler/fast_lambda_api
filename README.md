@@ -32,13 +32,14 @@ This library is a development only tool, therefore it does not provide any tooli
 - [x] Configure OpenAPI spec
 - [x] Add tags
 - [ ] CLI tooling
-  - [ ] Extract
+  - [x] Extract
   - [ ] Extract for API Gateway
   - [ ] Extract for Docs
   - [ ] Filter APIs (duplicate task)
   - [ ] Bootstrap
   - [ ] Template router
   - [ ] Inject route
+  - [ ] Link to [setuptools](https://click.palletsprojects.com/en/8.1.x/setuptools/), other [reference](https://pybit.es/articles/how-to-package-and-deploy-cli-apps/)
 - [ ] Extend OpenAPI spec with AWS security examples
 - [ ] Examples
   - [ ] Basic
