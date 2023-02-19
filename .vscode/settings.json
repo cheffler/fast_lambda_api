@@ -1,0 +1,26 @@
+{
+  "isort.args": [
+    "--profile",
+    "black"
+  ],
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "cSpell.ignoreWords": [
+    "Bjarne",
+    "Dragée",
+    "Nytwind",
+    "Stross",
+    "Stroustrup",
+    "donut",
+    "gummi",
+    "halvah",
+    "chupa",
+    "chups",
+    "Genoise",
+    "Flourless",
+    "tbsp"
+  ]
+}
