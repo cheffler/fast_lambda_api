@@ -13,9 +13,21 @@
         "export",
         "-t",
         "examples/basic/main.py",
-        "-v",
+      ],
+      "justMyCode": true
+    },
+    {
+      "name": "Basic Example: Export with filter",
+      "type": "python",
+      "request": "launch",
+      "module": "cli.main",
+      "args": [
+        "export",
+        "-t",
+        "examples/basic/main.py",
+        "--filter",
         "v1",
-        "-v",
+        "--filter",
         "v2",
       ],
       "justMyCode": true
