@@ -1,7 +1,11 @@
+from os import makedirs
+from pathlib import Path
+
 from click import Choice, echo
 from click.decorators import command, group, option
+
 from .config import config
-from .utils import load_app
+from .utils import format_spec, load_app
 
 
 @group
@@ -58,9 +62,15 @@ def export_open_api_spec(
     echo(f"reading app from {target}:{app_name}")
     app = load_app(target, app_name)
 
-    print(app)
+    spec = app.openapi()
 
-    echo(f"Writing files to f{output_dir} with base file name of {file_name}.{format}")
+    spec_str = format_spec(spec, format)
+
+    target_path = Path(".") / output_dir / f"{file_name}.{format}"
+
+    makedirs(target_path.parent, exist_ok=True)
+
+    target_path.write_text(spec_str)
 
 
 cli.add_command(export_open_api_spec)
