@@ -1,7 +1,7 @@
-from typing import Optional, List, Dict, Union, Any
+from typing import Any, Dict, List, Optional, Union
+
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
-
 
 app: FastAPI = FastAPI()
 
@@ -36,15 +36,18 @@ def customise_openapi_schema(
     additional_custom_details = {"logo_url": logo_url}
 
 
-def custom_openapi():
+def custom_openapi(routes: Optional[list] = None):
     global openapi_custom_details
     global additional_custom_details
+
+    if not routes:
+        routes = app.routes
 
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
         **openapi_custom_details,
-        routes=app.routes,
+        routes=routes,
     )
 
     if additional_custom_details.get("logo_url"):
@@ -57,4 +60,4 @@ def custom_openapi():
     return app.openapi_schema
 
 
-app.openapi = custom_openapi
+app.openapi = custom_openapi  # type: ignore

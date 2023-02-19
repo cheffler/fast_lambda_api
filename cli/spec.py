@@ -1,14 +1,15 @@
 import json
-from typing import Any, Union, get_args
+from typing import Any, Dict, Union, get_args
 
 import yaml
 from click import UsageError
 from fastapi import FastAPI
-from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
 from pydantic import AnyUrl
 from starlette.routing import Mount, Route
 from yaml import Dumper
+
+from src.app import custom_openapi
 
 from .config import config
 
@@ -43,7 +44,10 @@ def format_spec(spec: dict, format: str):
     raise UsageError(f"File format {format} is not supported")
 
 
-def filter_paths_in_app(app: FastAPI, path_contains: str):
+def get_filtered_spec(app: FastAPI, path_contains: str) -> Dict[str, Any]:
+    """
+    Create a full OpenAPI spec using a filtered set of APIs.
+    """
     filtered_routes = []
     classes = get_args(Union[Route, APIRoute, Mount])
     route: Any
@@ -52,17 +56,11 @@ def filter_paths_in_app(app: FastAPI, path_contains: str):
             if path_contains in route.path:
                 filtered_routes.append(route)
 
+    # Use the custom openapi builder from in src/app to get the same tags
+    # etc from the app
+    spec: Dict[str, Any] = custom_openapi(routes=filtered_routes)
+
+    # clear spec after being used, to support next execution
     app.openapi_schema = None
 
-    return get_openapi(
-        title=app.title,
-        version=app.version,
-        openapi_version=app.openapi_version,
-        description=app.description,
-        tags=app.openapi_tags,
-        servers=app.servers,
-        terms_of_service=app.terms_of_service,
-        contact=app.contact,
-        license_info=app.license_info,
-        routes=filtered_routes,
-    )
+    return spec
