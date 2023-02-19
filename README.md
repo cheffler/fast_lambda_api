@@ -31,6 +31,14 @@ This library is a development only tool, therefore it does not provide any tooli
 - [x] Standard FastAPI app to inject routes
 - [x] Configure OpenAPI spec
 - [x] Add tags
+- [ ] CLI tooling
+  - [ ] Extract
+  - [ ] Extract for API Gateway
+  - [ ] Extract for Docs
+  - [ ] Filter APIs (duplicate task)
+  - [ ] Bootstrap
+  - [ ] Template router
+  - [ ] Inject route
 - [ ] Extend OpenAPI spec with AWS security examples
 - [ ] Examples
   - [ ] Basic
