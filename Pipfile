@@ -23,3 +23,4 @@ python_version = "3.8"
 
 [scripts]
 basic="uvicorn examples.basic.main:app --reload --reload-dir=examples/basic"
+cli="python -m cli.main"
