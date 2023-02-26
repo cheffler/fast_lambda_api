@@ -27,36 +27,69 @@ This library is a development only tool, therefore it does not provide any tooli
 
 ## Features
 
+### Main
+
 - [x] Decorator to access handler
 - [x] Standard FastAPI app to inject routes
-- [x] Configure OpenAPI spec
-- [x] Add tags
-- [ ] CLI tooling
-  - [x] Extract
-  - [ ] Filter APIs (duplicate task)
-  - [ ] Extract for API Gateway
-  - [ ] Extract for Docs
-  - [ ] Bootstrap
-  - [ ] Template router
-  - [ ] Inject route
-  - [ ] Link to [setuptools](https://click.palletsprojects.com/en/8.1.x/setuptools/), other [reference](https://pybit.es/articles/how-to-package-and-deploy-cli-apps/)
-- [ ] Extend OpenAPI spec with AWS security examples
-- [ ] Examples
-  - [ ] Basic
-  - [ ] Lambdalith
-- [ ] CI/CD and publish library
+- [x] Add OpenAPI spec tags
+- [ ] Private decorator
+- [ ] Not Implemented decorator
+- [ ] Security decorator
+- [ ] [Extend OpenAPI](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions.html) spec with AWS security examples
 - [ ] Decorator/code to inject lambda into API Spec
-- [ ] Split API spec by version
-- [ ] Split API spec by private/public
-- [ ] Strip API spec(s) for documentation sites, e.g. remove AWS specific info
 - [ ] Helpers for AWS API Gateway "things"
-- [ ] Template/class for headers of API spec, e.g. servers, info, etc
 - [ ] Events and event API specs
 - [ ] Refresh import cache on header
-- [ ] Handle different paths, dot and slash notation
-- [ ] Check if FastAPI validation works & document
+- [ ] Add FastAPI lambdalith into routes
+- [ ] Handle different paths, dot and slash notation in handler decorator
 - [ ] More documentation
+
+### Configuration
+
+- [x] Configure OpenAPI spec
+- [x] Basic config class
+- [ ] Configure the custom names of spec properties
+- [ ] Configure target folders etc
+- [ ] Names
+- [ ] Basic OpenAPI configuration in a file
+- [ ] Config from JSON, ini, yaml, pyproject.toml
+- [ ] Template/class for headers of API spec, e.g. servers, info, etc
+
+### CLI tooling
+
+- [x] Extract
+- [x] Split API spec by version
+- [x] Filter APIs (duplicate task)
+- [ ] Split API spec by private/public
+- [ ] Strip API spec(s) for documentation sites, e.g. remove AWS specific info
+- [ ] Extract for API Gateway
+- [ ] Extract for Docs
+- [ ] Bootstrap
+- [ ] Template router
+- [ ] Inject route
+- [ ] Link to [setuptools](https://click.palletsprojects.com/en/8.1.x/setuptools/), other [reference](https://pybit.es/articles/how-to-package-and-deploy-cli-apps/)
+- [ ] Export to Postman
+- [ ] Merge with other OpenAPI spec
+
+### Examples
+
+- [ ] Basic
+  - [ ] Public
+  - [ ] Private
+  - [ ] Not implemented
+  - [ ] Templated response from AWS Gateway (&ß local)
+- [ ] V1 & V2
+- [ ] Lambdalith
+
+### Testing & CI/CD
+
+- [ ] Build in GH actions
+- [ ] Add publishing of library
 - [ ] Linting tools
 - [ ] Unit tests
 - [ ] Component tests
-- [ ] Add FastAPI lambdalith into routes
+- [ ] Check if FastAPI validation works & document
+
+## References
+
+- [AWS OpenAPI specification extensions](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions.html)
