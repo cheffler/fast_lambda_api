@@ -18,6 +18,35 @@ The tooling provides a place to create and document APIs powered by document enr
 
 This library is a development only tool, therefore it does not provide any tooling to help with the Lambda handlers or more. There are a few good libraries out there to provide frameworks for your Lambda code, one in particular is [AWS Lambda Powertools](https://awslabs.github.io/aws-lambda-powertools-python).
 
+## Getting Started
+
+> this section explains how to get started and work with this repo, using the library in other projects will come in time...
+
+This repo uses `Python3`, `pyenv` and `pipenv` as a base, so have these installed and be familiar how to use them on a basic level (that's all I know anyway)
+
+```sh
+# setup virtual env and install dependencies
+pipenv install
+```
+
+```sh
+# Run the basic example
+pipenv run basic
+
+# swagger like docs are available at localhost:8000/docs
+# redocly like docs are available at localhost:8000/redoc
+```
+
+### CLI Commands
+
+Below are some working examples of the CLI commands built to-date
+
+| Command | Description | Example |
+|----|----|----|
+| `pipenv run basic`| Run the basic example ||
+| `pipenv run cli export --help`| View the help for the export CLI|
+| `pipenv run cli export --filter v1` | Export an API spec filtering for APIs |`pipenv run cli export -t examples/basic/main.py --filter v2`|
+
 ## Use Cases
 
 - API First
