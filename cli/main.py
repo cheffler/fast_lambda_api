@@ -25,21 +25,20 @@ def cli():
 )
 @option(
     "-a",
-    "--app-name",
+    "--app",
+    "app_name",
     default="app",
     show_default=True,
     help="Name of the app in the target file",
 )
 @option(
-    "-d",
     "--output-dir",
     default=config.default_directory,
     show_default=True,
     help="The output directory for any exported files",
 )
 @option(
-    "-n",
-    "--file-name",
+    "--filename",
     default=config.default_export_filename,
     show_default=True,
     help="The base file name for all exports",
@@ -63,7 +62,7 @@ def export_open_api_spec(
     target: str,
     app_name: str,
     output_dir: str,
-    file_name: str,
+    filename: str,
     format: str,
     filter: List[str],
 ) -> None:
@@ -93,12 +92,12 @@ def export_open_api_spec(
     for name, spec in specs.items():
         spec_str: str = format_spec(spec, format)
         if name == "default":
-            filename = f"{file_name}.{format}"
+            file = f"{filename}.{format}"
         else:
             name = name.strip("/")
-            filename = f"{file_name}.{name}.{format}"
+            file = f"{filename}.{name}.{format}"
 
-        (target_dir / filename).write_text(spec_str)
+        (target_dir / file).write_text(spec_str)
 
 
 cli.add_command(export_open_api_spec)
