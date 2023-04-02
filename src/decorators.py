@@ -1,9 +1,9 @@
-from importlib import import_module
-
-from functools import wraps
 import json
+from functools import wraps
+from importlib import import_module
 from types import ModuleType
 from typing import Callable
+
 from fastapi import HTTPException, Request
 
 from .converters import request_to_api_gateway_event
@@ -15,8 +15,13 @@ def import_handler(
     handler: str = "handler",
 ):
     """
-    Decorator for a FastAPI Route that imports and invokes a Python Lambda handler.
-    Decorator with within the FastAPI tooling and requires the kwarg of `request` to be present in the route handler (`get_things` below). Formats the FastAPI request into an AWS API Gateway Event, converts to JSON and calls the handler. Handler is invoked by this decorator, so no need to add any custom logic.
+    Decorator for a FastAPI Route that imports and invokes a Python Lambda
+    handler.
+    Decorator with within the FastAPI tooling and requires the kwarg of
+    `request` to be present in the route handler (`get_things` below).
+    Formats the FastAPI request into an AWS API Gateway Event, converts to
+    JSON and calls the handler. Handler is invoked by this decorator, so no
+    need to add any custom logic.
 
     Example:
     ```
