@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict, Union, get_args
+from typing import Any, Dict, Optional, Tuple, Union, get_args
 
 import yaml
 from click import UsageError
@@ -10,8 +10,11 @@ from starlette.routing import Mount, Route
 from yaml import Dumper
 
 from src.app import custom_openapi
+from src.constants import PRIVATE_API_KEY
 
 from .config import config
+
+AllPossibleRouteClasses = Union[Route, APIRoute, Mount]
 
 
 def any_url_representer(dumper: Dumper, data: AnyUrl):
@@ -44,17 +47,60 @@ def format_spec(spec: dict, format: str):
     raise UsageError(f"File format {format} is not supported")
 
 
-def get_filtered_spec(app: FastAPI, path_contains: str) -> Dict[str, Any]:
+def is_route_private(
+    route: Route,
+) -> bool:
+    if not getattr(route, "openapi_extra", False):
+        return False
+
+    return getattr(route, "openapi_extra").get(
+        PRIVATE_API_KEY,
+        False,
+    )
+
+
+def get_filtered_private_spec(
+    app: FastAPI,
+) -> Tuple[Dict[str, Any], Optional[Dict[str, Any]]]:
+    public_routes = []
+    private_routes = []
+
+    route: Any
+    classes = get_args(AllPossibleRouteClasses)
+    for route in app.routes:
+        if isinstance(route, classes):
+            if is_route_private(route):
+                private_routes.append(route)
+            else:
+                public_routes.append(route)
+
+    spec: Dict[str, Any] = custom_openapi(routes=public_routes)
+    app.openapi_schema = None
+
+    private_spec = custom_openapi(routes=private_routes)
+    app.openapi_schema = None
+
+    return spec, private_spec
+
+
+def get_filtered_spec(
+    app: FastAPI, path_filter: str, filter_private: bool = False
+) -> Tuple[Dict[str, Any], Optional[Dict[str, Any]]]:
     """
     Create a full OpenAPI spec using a filtered set of APIs.
     """
     filtered_routes = []
-    classes = get_args(Union[Route, APIRoute, Mount])
+    private_routes = []
+
+    classes = get_args(AllPossibleRouteClasses)
     route: Any
     for route in app.routes:
         if isinstance(route, classes):
-            if path_contains in route.path:
-                filtered_routes.append(route)
+            if path_filter in route.path:
+                if filter_private and is_route_private(route):
+                    private_routes.append(route)
+                else:
+                    filtered_routes.append(route)
 
     # Use the custom openapi builder from in src/app to get the same tags
     # etc from the app
@@ -63,4 +109,9 @@ def get_filtered_spec(app: FastAPI, path_contains: str) -> Dict[str, Any]:
     # clear spec after being used, to support next execution
     app.openapi_schema = None
 
-    return spec
+    private_spec = None
+    if filter_private and private_routes:
+        private_spec = custom_openapi(routes=private_routes)
+        app.openapi_schema = None
+
+    return spec, private_spec

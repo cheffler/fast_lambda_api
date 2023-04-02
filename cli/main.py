@@ -6,7 +6,7 @@ from click import Choice
 from click.decorators import command, group, option
 
 from .config import config
-from .spec import format_spec, get_filtered_spec
+from .spec import format_spec, get_filtered_private_spec, get_filtered_spec
 from .utils import load_app
 
 
@@ -58,6 +58,14 @@ def cli():
     filename will contain the value, e.g. for `export --filter v1 ->
     openapi_spec.v1.yaml`.""",
 )
+@option(
+    "-p",
+    "--private",
+    is_flag=True,
+    default=False,
+    help="""Filter out private routes into a separate document, if other
+    filters are active, this will filter after those.""",
+)
 def export_open_api_spec(
     target: str,
     app_name: str,
@@ -65,6 +73,7 @@ def export_open_api_spec(
     filename: str,
     format: str,
     filter: List[str],
+    private: bool,
 ) -> None:
     """
     Export the OpenAPI specification from the target application
@@ -81,7 +90,15 @@ def export_open_api_spec(
 
     if filter and len(filter) > 0:
         for f in filter:
-            specs[f] = get_filtered_spec(app, f)
+            public_spec, private_spec = get_filtered_spec(app, f, private)
+            specs[f] = public_spec
+
+            if private_spec:
+                specs[f"{f}_private"] = private_spec
+    elif private:
+        public_spec, private_spec = get_filtered_private_spec(app)
+        specs["default"] = public_spec
+        specs["private"] = private_spec
     else:
         specs["default"] = app.openapi()
 
