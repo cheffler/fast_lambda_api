@@ -5,6 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Serve Basic",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "examples.basic.main:app",
+        "--reload",
+        "--reload-dir=examples/basic",
+        "--reload-dir=src"
+      ]
+    },
+    {
       "name": "Basic Example: Export",
       "type": "python",
       "request": "launch",
@@ -29,6 +41,7 @@
         "v1",
         "--filter",
         "v2",
+        "-p"
       ],
       "justMyCode": true
     }
