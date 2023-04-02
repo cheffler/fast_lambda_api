@@ -45,7 +45,8 @@ Below are some working examples of the CLI commands built to-date
 |----|----|----|
 | `pipenv run basic`| Run the basic example ||
 | `pipenv run cli export --help`| View the help for the export CLI|
-| `pipenv run cli export --filter v1` | Export an API spec filtering for APIs |`pipenv run cli export -t examples/basic/main.py --filter v2`|
+| `pipenv run cli export --filter v1` | Export an API spec filtering for APIs|`pipenv run cli export -t examples/basic/main.py --filter v2`|
+| `pipenv run cli export -p` | Export private APIs to separate files||
 
 ## Use Cases
 
@@ -61,9 +62,10 @@ Below are some working examples of the CLI commands built to-date
 - [x] Decorator to access handler
 - [x] Standard FastAPI app to inject routes
 - [x] Add OpenAPI spec tags
-- [ ] Private decorator
+- [x] Private tag on extras
 - [ ] Not Implemented decorator
 - [ ] Security decorator
+- [ ] WIP decorator
 - [ ] [Extend OpenAPI](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions.html) spec with AWS security examples
 - [ ] Decorator/code to inject lambda into API Spec
 - [ ] Helpers for AWS API Gateway "things"
@@ -103,8 +105,8 @@ Below are some working examples of the CLI commands built to-date
 ### Examples
 
 - [ ] Basic
-  - [ ] Public
-  - [ ] Private
+  - [x] Public
+  - [x] Private
   - [ ] Not implemented
   - [ ] Templated response from AWS Gateway (&ß local)
 - [ ] V1 & V2
