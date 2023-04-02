@@ -45,6 +45,10 @@ class Ingredient(BaseModel):
     unit: Units = Field(description="The unit the quantity is measured in")
 
 
+class Ingredients(BaseModel):
+    ingredients: List[Ingredient] = Field(description="A list of ingredients")
+
+
 class Temperature(BaseModel):
     celsius: int
     fahrenheit: int
